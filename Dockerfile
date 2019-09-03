@@ -1,6 +1,6 @@
 FROM kalilinux/kali-linux-docker:latest
 
-MAINTAINER Xavi Torelló <info@xaviertorello.cat>
+LABEL maintainer="Justin Perdok"
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV TERM xterm-256color
@@ -9,14 +9,15 @@ ENV TERM xterm-256color
 RUN rm -fR /var/lib/apt/ && \
     apt-get clean && \
     apt-get update -y && \
-    apt-get install -y software-properties-common kali-linux-full --fix-missing && \
+    apt-get install -y software-properties-common && \
+    apt-get install kali-linux-full -y --fix-missing && \
     echo 'VERSION_CODENAME=kali-rolling' >> /etc/os-release
 
 # Add NodeJS repo
-RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
+# RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
 
 # Some system tools
-RUN apt-get install -y git colordiff colortail unzip vim tmux xterm zsh curl telnet strace ltrace tmate less build-essential wget python3-setuptools python3-pip tor proxychains proxychains4 zstd net-tools bash-completion iputils-tracepath nodejs npm yarnpkg
+RUN apt-get install -y nodejs npm git colordiff colortail unzip vim tmux xterm zsh curl telnet strace ltrace tmate less build-essential wget python3-setuptools python3-pip tor proxychains proxychains4 zstd net-tools bash-completion iputils-tracepath yarnpkg
 
 # Oh-my-git!
 RUN git clone https://github.com/arialdomartini/oh-my-git.git ~/.oh-my-git && \
